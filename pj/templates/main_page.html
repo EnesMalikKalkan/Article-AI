@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akademik Port</title>
+    <link rel="icon" type="image/png" href="{% static 'images/academic.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <style>
+        html {
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('{% static "images/bg.jpg" %}');
+            background-size: cover;
+            overflow-y: hidden;
+            overflow-x: hidden;
+        }
+        #login_message {
+            margin-top: 100px;
+            font-weight: bold;
+            font-size: 24px;
+            color: gray;
+            text-align: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="main_navbar">
+        <a href="/">
+            <img src="{% static 'images/logo.png' %}" class="main_logo">
+        </a>
+        <ul>
+            <li><a href="giris_kayit/"><label class="main_reg">Giriş Yap / Kaydol</label></a></li>
+        </ul>
+    </div>
+    <header>
+        <h1>Türkiye'nin özelleştirilebilir makale okuma platformu</h1>
+    </header>
+    <a href="giris_kayit/"><div id="login_message"></div></a>
+    <script>
+        var text = "Deneyiminizi daha iyi hale getirmek için Giriş Yapın veya Kaydolun";
+        var index = 0;
+        var speed = 24;
+
+        function typeWriter() {
+            if (index < text.length) {
+                document.getElementById("login_message").innerHTML += text.charAt(index);
+                index++;
+                setTimeout(typeWriter, speed);
+            }
+        }
+        window.onload = function() {
+            typeWriter();
+        };
+    </script>
+</body>
+</html>

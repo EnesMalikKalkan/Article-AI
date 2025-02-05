@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akademik Port | {{ searchedWord }}</title>
+    <link rel="icon" href="{% static 'images/academic.png' %}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('{% static "images/bg.jpg" %}');
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            text-align: center;
+            color: #fff;
+        }
+
+        .article_container {
+            max-width: 800px;
+            margin: 20px auto 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: ivory;
+        }
+
+        .article_abstract a {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            color: darkgray;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .article_keywords {
+            margin-top: 10px;
+        }
+
+        .keys {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f0f0f0;
+            color: #666;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-right: 5px;
+            font-size: 12px;
+        }
+
+        .article_title .title {
+            margin: 10px 0 20px;
+            font-size: 18px;
+            color: ivory;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+            border-radius: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(#ccc, rgba(80, 104, 112, 0.5));
+            border-radius: 8px;
+        }
+
+        @media (max-width: 600px) {
+            .article_container {
+                padding: 10px;
+            }
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            height: 100px;
+        }
+    </style>
+    <script>
+        function toggleDropdown() {
+            var dropdownMenu = document.getElementById("dropdown_menu");
+            if (dropdownMenu.style.display === "block") {
+                dropdownMenu.style.display = "none";
+            } else {
+                dropdownMenu.style.display = "block";
+            }
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('.profile_btn')) {
+                var dropdowns = document.getElementsByClassName("dropdownmenu");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.style.display === "block") {
+                        openDropdown.style.display = "none";
+                    }
+                }
+            }
+        }
+
+        function validateSearchForm() {
+            var query = document.querySelector('.search_container input[name="query"]').value;
+            if (query.trim() === "") {
+                alert("Lütfen arama alanını doldurun.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+    <script>
+        function formatKeywords(keywords) {
+            var keywordsString = keywords.replace(/[\[\]']/g, '');
+
+            var formattedKeywords = keywordsString.split(',').map(keyword => {
+                return '&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;' + keyword.trim();
+            });
+
+            return formattedKeywords.join('<br>');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var keywordsElement = document.querySelector('.keys');
+            var keywords = keywordsElement.innerHTML;
+            keywordsElement.innerHTML = formatKeywords(keywords);
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <img src="{% static 'images/academic (1).png' %}" class="logo">
+            <form class="search_container" action="{% url 'results' %}" method="POST">
+                {% csrf_token %}
+                <input type="text" name="query" autocomplete="off" placeholder="{{ searchedWord }}">
+                <button type="submit" class="btn_logo">
+                    <img src="{% static 'images/search.png' %}" class="btn_logo_img">
+                </button>
+            </form>
+            <div class="nav_buttons">
+                <button class="profile_btn" style="background: transparent; border: none;" onclick="toggleDropdown()">
+                    {% if gender == "Male" %}
+                        <img src="{% static 'images/profilem.png' %}">
+                    {% else %}
+                        <img src="{% static 'images/profilew.png' %}">
+                    {% endif %}
+                </button>
+                <div id="dropdown_menu" class="dropdown_menu">
+                    <a href="{% url 'edit' %}">Profili Düzenle</a>
+                    <a href="/">Çıkış Yap</a>
+                </div>
+            </div>
+        </div>
+        <h1 style="color: ivory; margin-top: 20px;">{{ title }}</h1><br>
+        <div class="article-attr">
+            <span class="author" style="color: #335cae;">{{ name }}</span>
+        </div><br>
+        <div class="article-body">
+            <span class="abstract" style="color: #335cae; margin-bottom: 20px;">Özet</span><br>
+            <p style="color: gray; margin-top: 20px;">{{ abstract }}</p><br>
+            <span class="keywords" style="color: #335cae;">Anahtar Kelimeler</span><br>
+            <p class="keys" style="color: #335cae; margin-bottom: 20px; margin-top: 20px;">{{ keywords }}</p><br>
+            <span class="references" style="color: #335cae;">Tam Metin</span><br>
+            <p style="color: gray; margin-top: 20px;">{{ fulltext }}</p>
+        </div>
+    </div>
+</body>
+</html>
+<!-- Şu an sadece css dosyalarını düzeltmen lazım onu halledince işin çoğu bitiyor bir tek tavsiye edilen verilerin yararlı mı yararsız mı olduğunu belirleyip recall değerini hesaplaman gerekiyor-->

@@ -1,0 +1,172 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap \ Kayıt Ol</title>
+    <link rel="icon" type="image/png" href="{% static 'images/academic.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <style>
+        html {
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('{% static "images/bg.jpg" %}');
+            background-size: cover;
+            overflow-x: hidden;
+        }
+        .sign_btn {
+            color: ivory;
+        }
+        .signup_btn {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main_navbar">
+        <a href="/">
+            <img src="{% static 'images/logo.png' %}" class="main_logo">
+        </a>
+    </div>
+    <div class="login_area">
+        <div class="button_box">
+            <div id="btn"></div>
+            <button type="button" class="log_btn" onclick="login()">Giriş</button>
+            <button type="button" class="sign_btn" onclick="signup()">Kayıt Ol</button>
+        </div>
+        {% if error_message %}
+            <div class="error-message" style="color: ivory; font-weight: bold;">{{ error_message }}</div> <!-- Hata mesajını gösterecek div -->
+        {% endif %}
+        <form class="login" method="POST" action="{% url 'validate' %}">
+            {% csrf_token %}
+            <label class="login_text">Giriş</label>
+            <input type="text" name="login_uname" class="login_uname" placeholder="Kullanıcı Adı" required>
+            <input type="password" name="login_pass" class="login_pass" placeholder="Şifre" required>
+            <button type="submit" name="login_btn" class="login_btn">Giriş</button>
+        </form>
+        <div class="signup_area">
+            <form class="signup" method="POST" action="{% url 'identificate' %}">
+                {% csrf_token %}
+                <label class="signup_text">Kayıt</label>
+                <input type="text" name="signup_uname" class="signup_uname" placeholder="Kullanıcı Adı" required>
+                <input type="email" name="signup_mail" class="signup_mail" placeholder="E-Posta" required>
+                <input type="date" name="signup_birthdate" class="signup_birthdate" placeholder="Doğum Tarihi" required>
+                <select name="signup_gender" class="signup_gender" required>
+                    <option value="" disabled selected>Cinsiyet Seçiniz</option>
+                    <option value="Male">Erkek</option>
+                    <option value="Female">Kadın</option>
+                </select>
+                <input type="password" name="signup_pass" class="signup_pass" placeholder="Şifre" required>
+                <input type="password" class="signup_pass" placeholder="Şifre Yeniden" style="margin-bottom: 10px;" required>
+                <div class="checkbox_group">
+                    <input type="checkbox" id="interest1" name="interest" value="Parallel Programming"><span>Paralel Programlama</span><br>
+                    <input type="checkbox" id="interest2" name="interest" value="Data Analysis and Mining"><span>Veri Analizi ve Madenciliği</span><br>
+                    <input type="checkbox" id="interest3" name="interest" value="Distributed Systems"><span>Dağıtık Sistemler</span><br>
+                    <input type="checkbox" id="interest4" name="interest" value="Algorithms and Data Structures"><span>Algoritmalar ve Veri Yapıları</span><br>
+                    <input type="checkbox" id="interest5" name="interest" value="Machine Learning and Artificial Intelligence"><span>Makine Öğrenimi ve Yapay Zeka</span><br>
+                    <input type="checkbox" id="interest3" name="interest" value="Network Programming and Security"><span>Ağ Programlama ve Güvenlik</span><br>
+                    <input type="checkbox" id="interest4" name="interest" value="Computer Architecture and Systems"><span>Bilgisayar Mimarisi ve Sistemleri</span><br>
+                    <input type="checkbox" id="interest5" name="interest" value="Software Engineering and Development Methodologies"><span>Yazılım Mühendisliği ve Geliştirme Metodolojileri</span><br>
+                </div>
+                <button type="submit" class="signup_btn">Kaydol</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        var x = document.querySelector(".login");
+        var y = document.querySelector(".signup");
+        var z = document.getElementById("btn");
+        var log = document.querySelector(".log_btn");
+        var sign = document.querySelector(".sign_btn");
+
+        function login() {
+            x.style.left = "50px";
+            y.style.left = "450px";
+            z.style.left = "0";
+            sign.style.color = "ivory";
+            log.style.color = "black";
+        }
+        function signup() {
+            x.style.left = "-400px";
+            y.style.left = "50px";
+            z.style.left = "110px";
+            log.style.color = "ivory";
+            sign.style.color = "black";
+        }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var checkboxes = document.querySelectorAll('input[type=checkbox]');
+            var maxCheckCount = 3;
+
+            checkboxes.forEach(function(checkbox) {
+                checkbox.addEventListener('change', function() {
+                    var checkedCount = document.querySelectorAll('input[type=checkbox]:checked').length;
+                    if (checkedCount > maxCheckCount) {
+                        this.checked = false;
+                        alert("En fazla " + maxCheckCount + " ilgi alanı seçebilirsiniz.");
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var signupButton = document.querySelector('.signup_btn');
+    
+            signupButton.addEventListener('click', function(event) {
+                var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+                if (checkboxes.length < 3) {
+                    event.preventDefault();
+                    alert("En az 3 ilgi alanı seçmelisiniz.");
+                } else {
+                    document.querySelector('.signup').submit();
+                }
+            });
+        });
+    </script>
+    <script>
+        var errorMessage = document.querySelector('.error-message');
+    
+        if (errorMessage) {
+            setTimeout(function() {
+                errorMessage.innerHTML = '';
+            }, 3000);
+        }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var signupGender = document.querySelector(".signup_gender");
+    
+            signupGender.addEventListener("change", function() {
+                if (signupGender.value === "") {
+                    signupGender.style.color = "gray";
+                } else {
+                    signupGender.style.color = "ivory";
+                }
+            });
+    
+            if (signupGender.value === "") {
+                signupGender.style.color = "gray";
+            } else {
+                signupGender.style.color = "ivory";
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var signupBirthdate = document.querySelector(".signup_birthdate");
+    
+            signupBirthdate.addEventListener("change", function() {
+                signupBirthdate.style.color = "ivory";
+            });
+    
+            if (signupBirthdate.value === "") {
+                signupBirthdate.style.color = "gray";
+            } else {
+                signupBirthdate.style.color = "ivory";
+            }
+        });
+    </script>    
+</body>
+</html>

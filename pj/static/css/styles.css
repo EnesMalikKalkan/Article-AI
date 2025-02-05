@@ -1,0 +1,368 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+header {
+    color: #335cae;
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin-top: 90px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.main_navbar {/* ----------------------------------------------------- Giriş Sayfası */
+    width: 85%;
+    margin: auto;
+    padding: 35px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main_logo {
+    width: 300px;
+    cursor: pointer;
+    margin-left: -100px;
+    margin-top: -30px;
+}
+
+.main_navbar ul li {
+    font-family: 'Courier New', Courier;
+    font-weight: bolder;
+    list-style: none;
+    display: inline-block;
+    margin: 0 20px;
+    position: relative;
+    top: -15px;
+    right: -100px;
+}
+
+.main_navbar ul li::after {
+    content: '';
+    height: 3px;
+    width: 0;
+    background: #335cae;
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    transition: 0.24s;
+}
+
+.main_navbar ul li:hover::after {
+    width: 100%;
+}
+
+.main_navbar ul li a {
+    text-transform: uppercase;
+    color: gray;
+}/* ----------------------------------------------------- Giriş Sayfası */
+
+.login_area {/* ----------------------------------------------------- Kayıt Sayfası */
+    width: 380px;
+    height: 480px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: rgba(100, 100, 100, 0.5);
+    overflow: hidden;
+    border-radius: 30px;
+}
+
+.button_box {
+    width: 230px;
+    align-items: center;
+    margin: 35px auto;
+    position: relative;
+    border-radius: 30px;
+    box-shadow: 0 0 20px 9px rgba(143, 186, 200, 0.5);
+}
+
+.log_btn ,
+.sign_btn {
+    border-radius: 30px;
+    padding: 10px 30px;
+    cursor: pointer;
+    border: 0;
+    outline: none;
+    font-weight: bold;
+    font-family: 'Courier New', Courier;
+    background: transparent;
+    position: relative;
+    text-align: center;
+}
+
+#btn {
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 120px;
+    height: 100%;
+    background: linear-gradient(to right, #ccc, rgba(80, 104, 112, 0.5));
+    border-radius: 30px;
+    transition: 0.24s;
+}
+
+.login_area label {
+    font-size: 24px;
+    color: ivory;
+    margin-top: 35px;
+    margin-bottom: 10px;
+    display: block;
+    font-weight: bolder;
+    font-family: 'Courier New', Courier;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    width: 280px;
+}
+
+.signup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    width: 280px;
+    top: 70px;
+    overflow-y: auto;
+    max-height: calc(100vh - 80px);
+    padding-right: 24px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 0;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid #333333;
+    border-radius: 5px;
+    outline: none;
+    font-weight: bold;
+    padding-left: 3px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px) saturate(180%);
+    color: ivory;
+}
+
+input[type="date"], 
+select {
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 0;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid #333333;
+    border-radius: 5px;
+    outline: none;
+    font-weight: bold;
+    padding-left: 3px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px) saturate(180%);
+    color: gray ;
+}
+
+.signup_gender option {
+    background-color: #333333;
+    color: ivory;
+}
+
+button[type="submit"] {
+    width: 85%;
+    padding: 10px 30px;
+    background-color: rgba(64, 112, 244, 0.2);
+    color: #fff;
+    border: 0;
+    border-radius: 30px;
+    cursor: pointer;
+    outline: none;
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.login {
+    left: 50px;
+}
+
+.signup {   
+    left: 450px;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 210px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(#ccc, rgba(80, 104, 112, 0.5));
+    border-radius: 8px;
+}
+
+.checkbox_group {
+    display: block;
+    text-align: left;
+}
+
+.checkbox_group span {
+    font-weight: lighter;
+    color: ivory;
+    padding-left: 3px;
+}/* ----------------------------------------------------- Kayıt Sayfası */
+
+.search_container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 250px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.search_container input[type="text"] {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px) saturate(180%);
+    border: 0;
+    outline: none;
+    padding: 10px;
+    padding-right: 35px;
+    font-size: 16px;
+    color: #cac7ff;
+    border-radius: 4px 0 0 4px;
+    width: 900px;
+    height: 24px;
+}
+
+.search_container button {
+    background-color: #335cae;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.search_container button img {
+    width: 20px;
+    height: 20px;
+}
+
+.logo {
+    height: 100%;
+    cursor: pointer;
+    filter: drop-shadow(8px 5px 18px rgba(143, 143, 143, 0.44));
+    margin-left: 20px;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.nav_buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.profile_btn {
+    background-color: #fff;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.rec_scibert {
+    border-radius: 24px;
+    width: 750px;
+    display: flex;
+    justify-content: left;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 30px;
+    padding: 20px;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.rec_fasttext {
+    border-radius: 24px;
+    width: 750px;
+    display: flex;
+    justify-content: left;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 30px;
+    padding: 20px;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.rec_fasttext label,
+.rec_scibert label {
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.dropdown_menu {
+    display: none;
+    position: absolute;
+    top: 101px;
+    right: 0;
+    background-color: rgba(64, 112, 244, 0.2);
+    color: ivory;
+    min-width: 150px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 4px;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropdown_menu a {
+    color: ivory;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown_menu a:hover {
+    background-color: rgba(64, 112, 244, 0.5);
+}
